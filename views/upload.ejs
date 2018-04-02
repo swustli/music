@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="Author" content="Doving">
+    <meta name="Robots" content= "all">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+    <script type="text/javascript" src='/javascripts/jquery-1.9.0.min.js'></script>
+    <style type="text/css">
+      .input-file{
+          display: inline-block;
+          position: relative;
+          overflow: hidden;
+          text-align: center;
+          width: auto;
+          background-color: #2c7;
+          border: solid 1px #ddd;
+          border-radius: 4px;
+          padding: 5px 10px;
+          margin-top: 30px;
+          font-size: 12px;
+          font-weight: normal;
+          line-height: 18px;
+          color:#fff;
+          text-decoration: none;
+      }
+      .input-file input[type="file"] {
+          position: absolute;
+          top: 0;
+          right: 0;
+          font-size: 14px;
+          background-color: #fff;
+          transform: translate(-300px, 0px) scale(4);
+          height: 40px;
+          opacity: 0;
+          filter: alpha(opacity=0);
+       }
+      #submit{
+        position: fixed;
+        left: 25%;
+        bottom: 10px;
+        width: 50%;
+        height: 30px;
+        line-height: 30px;
+        border: solid 2px #fff;
+        background: #000;
+        cursor: pointer;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <form method="post" action="/upload" enctype="multipart/form-data">
+      <table width="540" height="200" border="0" cellpadding="0" cellspacing="0" style="border: 0    solid    #e7e3e7;
+             border-collapse: collapse ;" >
+            <tr>
+                <td style="background-color: #73A2d6; color: #fff; padding-left: 4px; padding-top: 2px;
+                     font-weight: bold; font-size: 12px;" height="10" valign="middle">
+                     <div align="right"><a href=JavaScript:; class="STYLE1" onclick="Lock_CheckForm(this);">[关闭]</a> &nbsp;&nbsp;&nbsp;&nbsp;</div></td>
+            </tr>
+            <tr>
+                <td height="60" align="center">
+                  <a class="input-file input-fileup" href="javascript:;">
+                           + 选择文件<input size="100" type="file" name="file" id="file">
+                  </a>
+                </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="fileerrorTip1"></div>
+                <div class="showFileName1"></div>
+              </td>
+            </tr>
+        </table>
+      <input id="submit" type="submit" value="提交"/>
+    </form>
+    <script type="text/javascript">
+        $(function(){
+            $(".input-fileup").on("change","input[type='file']",function(){
+                var filePath=$(this).val();
+                if(filePath.indexOf("mp3")!=-1 || filePath.indexOf("wav")!=-1){
+                    $(".fileerrorTip1").html("").hide();
+                    var arr=filePath.split('\\');
+                    var fileName=arr[arr.length-1];
+                    $(".showFileName1").html("文件名："+fileName);
+                }else{
+                    $(".showFileName1").html("");
+                    $(".fileerrorTip1").html("您未上传文件，或者您上传文件类型有误！").show();
+                    return false
+                }
+            })
+        });
+        document.getElementById('submit').onclick = function() {
+          parent.document.getElementById('iframebox').style.display = "none";
+          //parent.location.reload();
+        }
+
+        function Lock_CheckForm(theForm){ 
+          window.location.reload();
+          parent.document.getElementById('ly').style.display='none';
+          parent.document.getElementById('iframebox').style.display='none';
+          return false;   
+        }
+    </script>
+  </body>
+</html>

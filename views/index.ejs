@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="Keywords" content="音乐可视化,webAudio,music,音乐,HTML5,canvas,CSS3,自适应"> 
+    <meta name="Description" content="利用HTML5 webAudio API 和canvas API以及CSS3制作成的自适应的音乐可视化应用">
+    <meta name="Author" content="Doving">
+    <meta name="Robots" content= "all">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+    <link rel="icon" href="/images/music-icon.jpg" type="image/x-icon">
+  </head>
+  <body>
+    <header>
+      <h1><%= title %></h1>
+      <ul class="type">
+        <li class="selected" title="Dot">点状效果</li>
+        <li title="Column">柱状效果</li>
+      </ul>
+    </header>   
+    <div class="list" id="list">
+      <button class="music-add" id="add">
+        加载本地音乐
+      </button>
+      <button class="music-add" id="import">
+        上传本地音乐
+      </button>
+      <input class="upload" type="file" id="upload" />
+      <ul class="music-list" id="music-list">
+        <% music.forEach(function(name){ %>
+        <% if(name.indexOf("mp3")>0 || name.indexOf("wav")>0 || name.indexOf("ogg")>0) {%>
+        <li title="<%= name %>"><%= name %></li>
+        <% } %>
+        <% }) %>
+      </ul>
+      <div id="playerbox" class="playerbox"></div>
+    </div>
+    <p id="lyricContainer"></p>
+    <div class="canvas" id="canvas">
+    </div>
+    <div class="loading-box" id="loading-box">
+      <ul id="loading">
+        <li class='l'></li>
+        <li class='o'></li>
+        <li class='a'></li>
+        <li class='d'></li>
+        <li class='i'></li>
+      </ul>
+      <div class="play" id="play">PLAY</div>
+    </div>
+    <script type="text/javascript" src='/javascripts/music.js'></script>
+    <script type="text/javascript" src='/javascripts/index.js'></script>
+    <div id="ly" style="position: absolute; top: 0px; filter: alpha(opacity=60); background-color: #fff;z-index: 2; left: 0px; ">
+    </div>
+    <!--          浮层框架开始         -->
+    <div id="iframebox" align="center" style="
+        position: absolute; z-index: 3; top: 40%; left: 35%;
+         background-color: #000; display: none;" >
+        <iframe src="/upload" width="540" height="200" scrolling="no"></iframe>
+    </div>
+    <!--  浮层框架结束-->
+  </body>
+</html>
+
